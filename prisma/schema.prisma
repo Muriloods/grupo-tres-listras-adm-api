@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Contractor {
+  id          String  @unique
+  name        String
+  email       String?
+  phone       String
+  events_held Event[]
+  is_commerce Boolean @default(false)
+
+  @@map("contractors")
+}
+
+model Fan {
+  id          String  @unique
+  name        String?
+  email       String? @unique
+  instagram   String? @unique
+  is_follower Boolean @default(false)
+
+  @@map("fans")
+}
+
+model Event {
+  id            String       @unique
+  name          String
+  contractor    Contractor   @relation(fields: [contractor_id], references: [id])
+  contractor_id String
+  date          DateTime
+  folder_url    String?
+  description   String
+  photos        EventPhoto[]
+  is_private    Boolean      @default(false)
+
+  @@map("events")
+}
+
+model EventPhoto {
+  id        String @unique
+  event     Event  @relation(fields: [event_id], references: [id])
+  event_id  String
+  photo_url String
+
+  @@map("event_photos")
+}
+
+model User {
+  id       String @unique
+  email    String @unique
+  name     String
+  password String @unique
+
+  @@map("users")
+}
