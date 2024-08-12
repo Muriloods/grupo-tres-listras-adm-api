@@ -19,7 +19,7 @@ export class Controller {
       contractor_id: contractor_id,
       date: new Date(date),
       // @ts-ignore
-      folder_url: request.files.folder[0].path,
+      folder_url: request.files.folder[0].path.replace("uploads/", ""),
       description: description,
       photos: null,
       is_private: is_private === 'true',
@@ -32,7 +32,7 @@ export class Controller {
     const photos = request.files.images.map(function (photo) {
       return {
         id: null,
-        photo_url: photo.path,
+        photo_url: photo.path.replace("uploads/", ""),
         event: null,
         event_id: ev.id
       }
