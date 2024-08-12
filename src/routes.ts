@@ -24,22 +24,18 @@ import { authMiddleware } from "./middlewares/authMiddleware";
 
 const router = Router();
 
-//user
-// router.route('/user')
-//     .post((req, res) => {
-//         return createUsersUseCaseController.handle(req, res);
-//     })
-const path = require("path");
-router.get('/teste', async (request: Request, response: Response) => {
-    response.send(path.join(__dirname, "uploads"));
-})
+
 //auth
 router.route('/auth')
     .post((req, res) => {
         return authenticateController.handle(req, res);
     })
 
-// router.use(authMiddleware);
+router.get("/event", (req, res) => {
+    return listEventsController.handle(req, res);
+})
+
+router.use(authMiddleware);
 //contractors
 router.route('/contractor')
   .post((req, res) => {
@@ -70,9 +66,7 @@ router.put("/event/:id", uploadMiddleware.fields([{ name: 'folder', maxCount: 1 
   return editEventsUseCaseController.handle(req, res);
 })
 
-router.get("/event", (req, res) => {
-  return listEventsController.handle(req, res);
-})
+
 
 router.route('/event/:id')
   .get( (req, res) => {
