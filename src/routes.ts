@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Response } from "express";
 import { uploadMiddleware } from "./storage";
 
 //user
@@ -29,15 +29,17 @@ const router = Router();
 //     .post((req, res) => {
 //         return createUsersUseCaseController.handle(req, res);
 //     })
-
-
+const path = require("path");
+router.get('/teste', async (request: Request, response: Response) => {
+    response.send(path.join(__dirname, "uploads"));
+})
 //auth
 router.route('/auth')
     .post((req, res) => {
         return authenticateController.handle(req, res);
     })
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 //contractors
 router.route('/contractor')
   .post((req, res) => {
