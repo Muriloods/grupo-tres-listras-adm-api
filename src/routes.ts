@@ -26,12 +26,18 @@ const router = Router();
 
 
 //user
-router.route('/user')
+// router.route('/user')
+//     .post((req, res) => {
+//         return createUsersUseCaseController.handle(req, res);
+//     })
+
+//auth
+router.route('/auth')
     .post((req, res) => {
-        return createUsersUseCaseController.handle(req, res);
+        return authenticateController.handle(req, res);
     })
 
-// router.use(authMiddleware);
+router.use(authMiddleware);
 //contractors
 router.route('/contractor')
   .post((req, res) => {
@@ -72,11 +78,6 @@ router.route('/event/:id')
   })
   .delete((req, res) => {
     return deleteEventsController.handle(req, res);
-  })
-//auth
-router.route('/auth')
-  .post((req, res) => {
-    return authenticateController.handle(req, res);
   })
 
 export default router;
