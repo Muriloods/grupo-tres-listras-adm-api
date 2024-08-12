@@ -24,12 +24,12 @@ import { authMiddleware } from "./middlewares/authMiddleware";
 
 const router = Router();
 
-
 //user
 // router.route('/user')
 //     .post((req, res) => {
 //         return createUsersUseCaseController.handle(req, res);
 //     })
+
 
 //auth
 router.route('/auth')
